@@ -1,0 +1,67 @@
+_schema-version: 3.3.0
+ID: margot-bookshop
+version: 1.0.0
+description: "A simple CAP project."
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+
+modules:
+  - name: margot-bookshop-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: margot-srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: margot-bookshop-destination
+      - name: margot-bookshop-db
+      - name: margot-bookshop-auth
+
+  - name: margot-bookshop-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: margot-bookshop-db
+
+resources:
+  - name: margot-bookshop-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+
+  - name: margot-bookshop-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+
+  - name: margot-bookshop-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: margot-bookshop-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"

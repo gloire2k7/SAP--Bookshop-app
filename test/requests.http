@@ -1,0 +1,79 @@
+@baseUrl = http://localhost:4004
+@service = /odata/v4/catalog
+@service2 = /odata/v2/catalog
+
+GET {{baseUrl}}{{service}}/$metadata
+Accept: application/xml
+
+###
+GET {{baseUrl}}{{service}}/Books
+
+###
+GET {{baseUrl}}{{service}}/Books?$select=ID,title,stock,price,author&$expand=author($select=name)&$orderby=title
+Accept: application/json
+
+###
+POST {{baseUrl}}{{service}}/Books
+Content-Type: application/json
+
+{
+    "title": "The Masterpiece",
+    "price": 19.99,
+    "stock": 50,
+    "author": {
+        "ID": "11784427-59be-4a4c-9734-e7ba24288a06"
+    },
+    "cover": {
+        "filename": "/uploads/cover1.jpg",
+        "mediaType": "image/jpeg"
+    },
+    "preview": {
+        "filename": "/uploads/preview1.pdf",
+        "mediaType": "application/pdf"
+    }
+}
+
+###
+GET {{baseUrl}}{{service}}/Authors
+Accept: application/json
+
+###
+GET {{baseUrl}}{{service}}/Orders
+
+###
+GET {{baseUrl}}{{service}}/Orders?$select=ID,quantity,book_ID,isCancelled&$expand=book($select=title)
+Accept: application/json
+
+###
+POST {{baseUrl}}{{service}}/Orders
+Content-Type: application/json
+
+{
+    "quantity": 2,
+    "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35"
+}
+
+
+###
+POST {{baseUrl}}{{service}}/Orders
+Content-Type: application/json
+
+{
+    "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35"
+}
+
+### Get Suppliers from mocked Business Partner API
+GET {{baseUrl}}{{service}}/Suppliers
+Accept: application/json
+
+###
+GET {{baseUrl}}{{service2}}/$metadata
+Accept: application/xml
+
+###
+GET {{baseUrl}}{{service2}}/Suppliers
+Accept: application/json
+
+###
+GET {{baseUrl}}{{service2}}/Books
+Accept: application/json
