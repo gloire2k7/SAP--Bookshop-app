@@ -1,7 +1,10 @@
 using { my.bookshop as db } from '../db/schema';
 using { API_BUSINESS_PARTNER} from './external/API_BUSINESS_PARTNER';
 
-@(requires: 'any')
+@restrict: [
+    { grant: 'READ', to: 'Viewer' },
+    { grant: '*', to: 'Admin' }
+]
 service CatalogService {
     entity Authors as projection on db.Authors;
     entity Books   as projection on db.Books;

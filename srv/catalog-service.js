@@ -4,6 +4,11 @@ const {SELECT, UPDATE} = cds.ql;
 
 export default cds.service.impl(function () {
 
+    this.before('READ', 'Books', async req => {
+        console.log('Authenticated user:', req.user.id)
+        console.log('User roles:', req.user.roles)
+    })
+    
     this.before('CREATE', 'Orders', async req => {
 
     const { book_ID, quantity } = req.data
@@ -31,24 +36,6 @@ export default cds.service.impl(function () {
             .set({ stock: book.stock - quantity })
     )
 })
-
-    // this.on('GET', 'Books', async req =>{
-    //     const books = await cds.tx(req).run (
-    //         SELECT
-    //         .from('my.bookshop.Books')
-    //         .columns(
-    //             'ID',
-    //             'title',
-    //             'stock',
-    //             'price',
-    //             {ref: ['author', 'name'], as: 'AuthorName'}
-    //         )
-    //         .orderBy('title')
-    //     )
-            
-
-        // return books;
-    // })
 
 this.on('cancelOrder', async req => {
 

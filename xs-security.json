@@ -1,5 +1,48 @@
 {
-  "scopes": [],
+  "xsappname": "margot-bookshop-bbaea2a7trial-kevine",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.View",
+      "description": "View Bookshop data"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Administrative access to Bookshop"
+    }
+  ],
   "attributes": [],
-  "role-templates": []
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Can view Bookshop data",
+      "scope-references": [
+        "$XSAPPNAME.View"
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "Full administrative access to Bookshop",
+      "scope-references": [
+        "$XSAPPNAME.View",
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Viewer",
+      "description": "Viewer access to Bookshop",
+      "role-template-references": [
+        "$XSAPPNAME.Viewer"
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "Administrator access to Bookshop",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ]
 }
