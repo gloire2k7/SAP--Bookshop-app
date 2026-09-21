@@ -9,7 +9,7 @@ entity Authors : managed,cuid{
  
 entity Books : managed,cuid {
     title      : String @mandatory;
-    price      : Decimal @assert.format: 'positive';
+    price      : Decimal @assert.range: [0,100000];
     stock      : Integer;
     author     : Association to Authors;
 }

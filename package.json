@@ -24,6 +24,21 @@
       "with_mocks": true
     },
     "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "viewer": {
+            "roles": [
+              "Viewer"
+            ]
+          },
+          "admin": {
+            "roles": [
+              "Admin"
+            ]
+          }
+        }
+      },
       "API_BUSINESS_PARTNER": {
         "kind": "odata-v2",
         "model": "srv/external/API_BUSINESS_PARTNER",
@@ -37,3 +52,4 @@
     }
   }
 }
+

@@ -2,6 +2,7 @@ node_modules/
 target/
 _out/
 gen/
+.vscode/
 
 .cdsrc-private.json
 default-*.json

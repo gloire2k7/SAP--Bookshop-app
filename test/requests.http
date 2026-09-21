@@ -7,6 +7,7 @@ Accept: application/xml
 
 ###
 GET {{baseUrl}}{{service}}/Books
+Authorization: Basic viewer:
 
 ###
 GET {{baseUrl}}{{service}}/Books?$select=ID,title,stock,price,author&$expand=author($select=name)&$orderby=title
@@ -35,10 +36,12 @@ Content-Type: application/json
 
 ###
 GET {{baseUrl}}{{service}}/Authors
+Authorization: Basic viewer:
 Accept: application/json
 
 ###
 GET {{baseUrl}}{{service}}/Orders
+Authorization: Basic viewer:
 
 ###
 GET {{baseUrl}}{{service}}/Orders?$select=ID,quantity,book_ID,isCancelled&$expand=book($select=title)
@@ -62,18 +65,22 @@ Content-Type: application/json
     "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35"
 }
 
-### Get Suppliers from mocked Business Partner API
+###
 GET {{baseUrl}}{{service}}/Suppliers
+Authorization: Basic viewer:
 Accept: application/json
 
 ###
 GET {{baseUrl}}{{service2}}/$metadata
+Authorization: Basic viewer:
 Accept: application/xml
 
 ###
 GET {{baseUrl}}{{service2}}/Suppliers
+Authorization: Basic viewer:
 Accept: application/json
 
 ###
 GET {{baseUrl}}{{service2}}/Books
+Authorization: Basic viewer:
 Accept: application/json
