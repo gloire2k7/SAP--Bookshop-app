@@ -3,6 +3,7 @@
 @service2 = /odata/v2/catalog
 
 GET {{baseUrl}}{{service}}/$metadata
+Authorization: Basic viewer:
 Accept: application/xml
 
 ###
