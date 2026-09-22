@@ -2,14 +2,22 @@
   "xsappname": "margot-bookshop-bbaea2a7trial-kevine",
   "tenant-mode": "dedicated",
   "scopes": [
-  {
-    "name": "$XSAPPNAME.Viewer",
-    "description": "View Bookshop data"
-  },
-  {
-    "name": "$XSAPPNAME.Admin",
-    "description": "Administrative access to Bookshop"
-  }
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "View Bookshop data"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Administrative access to Bookshop"
+    },
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Viewer"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin"
+    }
   ],
   "attributes": [],
   "role-templates": [
@@ -45,10 +53,9 @@
       ]
     }
   ],
-
   "oauth2-configuration": {
-  "redirect-uris": [
-    "https://oauth.pstmn.io/v1/browser-callback"
-  ]
+    "redirect-uris": [
+      "https://oauth.pstmn.io/v1/browser-callback"
+    ]
   }
 }

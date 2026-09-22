@@ -11,28 +11,12 @@ Authorization: Basic viewer:
 
 ###
 GET {{baseUrl}}{{service}}/Books?$select=ID,title,stock,price,author&$expand=author($select=name)&$orderby=title
+Authorization: Basic viewer:
 Accept: application/json
 
 ###
-POST {{baseUrl}}{{service}}/Books
-Content-Type: application/json
-
-{
-    "title": "The Masterpiece",
-    "price": 19.99,
-    "stock": 50,
-    "author": {
-        "ID": "11784427-59be-4a4c-9734-e7ba24288a06"
-    },
-    "cover": {
-        "filename": "/uploads/cover1.jpg",
-        "mediaType": "image/jpeg"
-    },
-    "preview": {
-        "filename": "/uploads/preview1.pdf",
-        "mediaType": "application/pdf"
-    }
-}
+GET {{baseUrl}}{{service}}/Books?$select=ID,title,stock
+Authorization: Basic viewer:
 
 ###
 GET {{baseUrl}}{{service}}/Authors
@@ -44,26 +28,29 @@ GET {{baseUrl}}{{service}}/Orders
 Authorization: Basic viewer:
 
 ###
-GET {{baseUrl}}{{service}}/Orders?$select=ID,quantity,book_ID,isCancelled&$expand=book($select=title)
-Accept: application/json
+GET {{baseUrl}}{{service}}/Orders?$expand=items($expand=book)
+authorization: Basic viewer:
 
-###
+### 
 POST {{baseUrl}}{{service}}/Orders
+Authorization: Basic admin:
 Content-Type: application/json
 
 {
-    "quantity": 2,
-    "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35"
+    "items": [
+        { "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35", "quantity": 2 },
+        { "book_ID": "22026397-3b46-4bd6-afbf-eedad1bd3b73",            "quantity": 1 }
+    ]
 }
 
 
 ###
-POST {{baseUrl}}{{service}}/Orders
-Content-Type: application/json
+GET {{baseUrl}}{{service}}/PurchaseLogs?$expand=order
+Authorization: Basic viewer:
 
-{
-    "book_ID": "22026396-294f-4f7a-8e65-b23c923baf35"
-}
+### 
+POST {{baseUrl}}{{service}}/Orders(aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa)/cancelOrder
+Authorization: Basic admin:
 
 ###
 GET {{baseUrl}}{{service}}/Suppliers
