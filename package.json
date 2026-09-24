@@ -13,10 +13,12 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^3",
-    "@sap/cds-dk": "^10"
+    "@sap/cds-dk": "^10",
+    "cds-plugin-ui5": "^0.17.0"
   },
   "scripts": {
-    "start": "cds-serve --with-mocks"
+    "start": "cds-serve --with-mocks",
+    "watch-books": "cds watch --open books/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {
@@ -36,6 +38,12 @@
             "roles": [
               "Admin"
             ]
+          },
+          "richard.musime@moyotech.net": {
+            "roles": [
+              "Viewer",
+              "Admin"
+            ]
           }
         }
       },
@@ -50,6 +58,11 @@
         "auth": "xsuaa"
       }
     }
-  }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/books"
+  ]
 }
-

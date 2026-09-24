@@ -6,6 +6,7 @@ entity Authors : managed, cuid {
     name : String;
 }
 
+@odata.draft.enabled
 entity Books : managed, cuid {
     title  : String  @mandatory;
     price  : Decimal @assert.range: [0, 100000];

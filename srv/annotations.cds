@@ -1,8 +1,5 @@
 using CatalogService from './catalog-service';
 
-// ============================================================
-// UI annotations for the Books List Report + Object Page
-// ============================================================
 
 annotate CatalogService.Books with @(
     UI.SelectionFields: [
@@ -55,12 +52,28 @@ annotate CatalogService.Books with @(
     }
 );
 
-// Explicit value help on Books.author
 annotate CatalogService.Books with {
     author @(
         Common: {
             Label: '{i18n>author}',
+            Text: author.name,                      
+            TextArrangement: #TextOnly,             
             ValueList: {
+                Label:          '{i18n>authorValueHelp}',
+                CollectionPath: 'Authors',
+                Parameters: [
+                    {
+                        $Type:             'Common.ValueListParameterInOut',
+                        LocalDataProperty: author_ID,
+                        ValueListProperty: 'ID'
+                    },
+                    {
+                        $Type:             'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty: 'name'
+                    }
+                ]
+            },
+            ValueList #Filter: {
                 Label:          '{i18n>authorValueHelp}',
                 CollectionPath: 'Authors',
                 Parameters: [
